@@ -21,13 +21,13 @@ class Card extends React.Component {
 
     render() {
 
-        let {user, getUsers} = this.props;
+        let {user} = this.props;
 
         return (
 
             <div className='card'>
 
-                <img src={user.image}/>
+                <img src={user.image} alt='Profile picture'/>
 
                 <div className='card-info'>
 
@@ -37,7 +37,7 @@ class Card extends React.Component {
 
                     <p>Location: {user.location}</p>
 
-                    <p>Profile: {user.url}</p>
+                    <p>Profile: {user.url}</p> <a href={user.url}>{user.url}</a>
 
                     <p>Followers: {user.followers}</p>
 

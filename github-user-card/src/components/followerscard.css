@@ -1,13 +1,8 @@
-
-  
-  .card {
-    width: 100%;
+.card-follower {
+    width: 75%;
 
     padding: 20px;
     display: flex;
-
-    align-items: center;
-
     border-radius: 5px;
     box-shadow: 0 1px 6px -2px #000;
     background-color: #FFF;
@@ -29,28 +24,25 @@
 
   }
   
-  .card img {
+  .card-follower img {
     width: 150px;
     height: 150px;
     border-radius: 3px;
     margin-right: 20px;
   }
   
-  .card .name {
+  .card-follower .name {
     font-size: 3.4rem;
   }
   
-  .card p {
+  .card-follower p {
     font-size: 1.4rem;
     margin-bottom: 3px;
   }
-  
-  .card .username {
+
+  .card-follower .username {
     font-size: 1.8rem;
     font-style: italic;
     margin: 3px 0 10px;
   }
-  
-  
-  
   

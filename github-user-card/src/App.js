@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 
 import Card from './components/Card';
+import FollowersCard from './components/FollowersCard';
 
 import axios from 'axios';
 
@@ -18,9 +19,9 @@ class App extends React.Component {
       
       {
 
-        usersData: [
+        mainUser:
 
-          {
+        {
 
           image: '',
           name: 'Name',
@@ -32,8 +33,9 @@ class App extends React.Component {
           followers_url: null,
           bio: null
 
-          }
-        ]
+        },
+
+        followers: []
 
       }
   }
@@ -46,7 +48,7 @@ class App extends React.Component {
   
       let data = response.data;
 
-      let newUsersData = [
+      let newMainUser =
 
         {
 
@@ -62,17 +64,14 @@ class App extends React.Component {
 
         }
 
-      ]
-
-
 
       this.setState({
 
-        usersData:[...newUsersData]
+        mainUser:{...newMainUser}
 
       });
 
-      if (this.state.usersData[0].followers_url === null) {
+      if (this.state.mainUser.followers_url === null) {
 
         return <h1>Waiting for data</h1>
   
@@ -80,7 +79,7 @@ class App extends React.Component {
   
         console.log('First users data loaded')
 
-        axios.get(this.state.usersData[0].followers_url).then(response => {
+        axios.get(this.state.mainUser.followers_url).then(response => {
 
           console.log(response.data);
 
@@ -88,7 +87,7 @@ class App extends React.Component {
 
             let data = response.data[i];
 
-            let newUsersData = [
+            let newFollowers = [
       
               {
       
@@ -110,10 +109,10 @@ class App extends React.Component {
       
             this.setState({
       
-              usersData:[
+              followers:[
                 
-                ...this.state.usersData,
-                ...newUsersData
+                ...this.state.followers,
+                ...newFollowers
 
               ]
       
@@ -135,9 +134,11 @@ class App extends React.Component {
   return (
     <div className="App">
 
-      {this.state.usersData.map((item, index) => <Card user={item} key={index}/>)}
+      <Card user={this.state.mainUser}/>      
 
-      {/* <Card user={this.state.usersData[0]} getUsers={this.getUsers}/> */}
+      <h2>Followers</h2>
+
+      {this.state.followers.map((item, index) => <FollowersCard user={item} key={index}/>)}>
 
     </div>
   );
