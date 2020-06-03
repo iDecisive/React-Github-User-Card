@@ -9,15 +9,29 @@ class Card extends React.Component {
 
     }
 
+    componentDidMount() {
+
+        if (this.props.user === undefined) {
+
+            return 'Waiting on user data...'
+
+        } else {
+
+            this.props.getUsers();
+
+        }
+
+    }
+
     render() {
 
-        let {user} = this.props;
+        let {user, getUsers} = this.props;
 
         return (
 
             <div className='card'>
 
-                <img />
+                <img src={user.image}/>
 
                 <div className='card-info'>
 

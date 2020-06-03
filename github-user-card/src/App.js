@@ -3,6 +3,8 @@ import logo from './logo.svg';
 
 import Card from './components/Card';
 
+import axios from 'axios';
+
 import './App.css';
 
 
@@ -35,6 +37,44 @@ class App extends React.Component {
       }
 
 
+  }
+
+  //Functions
+
+  getUsers = _ => {
+
+    console.log('getUsers has been called');
+
+    axios.get("https://api.github.com/users/iDecisive").then(response => {
+  
+      let data = response.data;
+
+      let newUsersData = [
+
+        {
+
+          image: data.avatar_url,
+          name: data.name,
+          username: data.login,
+          location: data.location,
+          url: data.html_url,
+          followers: data.followers,
+          following: data.following,
+          bio: data.bio
+
+        }
+
+      ]
+
+      this.setState({
+
+        usersData:[...newUsersData]
+
+      });
+
+    }).catch(_ => "Catch")
+
+    //from old user-card code: const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
 
   }
 
@@ -42,7 +82,9 @@ class App extends React.Component {
   return (
     <div className="App">
 
-    <Card user={this.state.usersData[0]}/>
+      {this.state.usersData.map((item, index) => <Card user={item} getUsers={this.getUsers} key={index}/>)}
+
+      {/* <Card user={this.state.usersData[0]} getUsers={this.getUsers}/> */}
 
     </div>
   );
