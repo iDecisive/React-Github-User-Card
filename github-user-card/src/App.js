@@ -29,23 +29,20 @@ class App extends React.Component {
           url: 'Url',
           followers: 0,
           following: 0,
+          followers_url: null,
           bio: null
 
           }
         ]
 
       }
-
-
   }
 
   //Functions
 
-  getUsers = _ => {
+  componentDidMount() {
 
-    console.log('getUsers has been called');
-
-    axios.get("https://api.github.com/users/iDecisive").then(response => {
+    axios.get("https://api.github.com/users/bigknell").then(response => { //Target user
   
       let data = response.data;
 
@@ -60,11 +57,14 @@ class App extends React.Component {
           url: data.html_url,
           followers: data.followers,
           following: data.following,
+          followers_url: data.followers_url,
           bio: data.bio
 
         }
 
       ]
+
+
 
       this.setState({
 
@@ -72,9 +72,62 @@ class App extends React.Component {
 
       });
 
-    }).catch(_ => "Catch")
+      if (this.state.usersData[0].followers_url === null) {
 
-    //from old user-card code: const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+        return <h1>Waiting for data</h1>
+  
+      } else {
+  
+        console.log('First users data loaded')
+
+        axios.get(this.state.usersData[0].followers_url).then(response => {
+
+          console.log(response.data);
+
+          for (let i=0; i<10; i++) {
+
+            let data = response.data[i];
+
+            let newUsersData = [
+      
+              {
+      
+                image: data.avatar_url,
+                name: data.name,
+                username: data.login,
+                location: data.location,
+                url: data.html_url,
+                followers: data.followers,
+                following: data.following,
+                followers_url: data.followers_url,
+                bio: data.bio
+      
+              }
+      
+            ]
+      
+      
+      
+            this.setState({
+      
+              usersData:[
+                
+                ...this.state.usersData,
+                ...newUsersData
+
+              ]
+      
+            });
+
+          }
+
+        })
+
+      }
+  
+
+    }).catch(_ => "Catch");
+
 
   }
 
@@ -82,7 +135,7 @@ class App extends React.Component {
   return (
     <div className="App">
 
-      {this.state.usersData.map((item, index) => <Card user={item} getUsers={this.getUsers} key={index}/>)}
+      {this.state.usersData.map((item, index) => <Card user={item} key={index}/>)}
 
       {/* <Card user={this.state.usersData[0]} getUsers={this.getUsers}/> */}
 

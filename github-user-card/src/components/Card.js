@@ -15,11 +15,7 @@ class Card extends React.Component {
 
             return 'Waiting on user data...'
 
-        } else {
-
-            this.props.getUsers();
-
-        }
+        } 
 
     }
 
