@@ -8,11 +8,41 @@ import './App.css';
 
 class App extends React.Component {
 
+  constructor() {
+
+    super();
+
+    this.state =
+      
+      {
+
+        usersData: [
+
+          {
+
+          image: '',
+          name: 'Name',
+          username: 'Username',
+          location: 'Location',
+          url: 'Url',
+          followers: 0,
+          following: 0,
+          bio: null
+
+          }
+        ]
+
+      }
+
+
+
+  }
+
   render() {
   return (
     <div className="App">
 
-    <Card />
+    <Card user={this.state.usersData[0]}/>
 
     </div>
   );
